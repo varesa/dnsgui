@@ -188,6 +188,13 @@ function sendData() {
     }
 }
 
+function restart() {
+    $.get("/restart", function(data) {
+        $(".modal-body").text(data);
+        $(".modal").modal();
+    })
+}
+
 $(document).ready(function () {
     $("#btn-read-fz").click( function() {
         type = "fz";
@@ -198,5 +205,6 @@ $(document).ready(function () {
         $.get("/read", updateScreen);
     });
     $("#btn-write").click(sendData);
+    $("#btn-restart").click(restart);
 });
 

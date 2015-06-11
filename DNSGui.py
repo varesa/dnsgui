@@ -1,6 +1,7 @@
 
 import shutil
 import datetime
+import subprocess
 
 import sys
 sys.path.append("/var/www/dnsgui/")
@@ -53,7 +54,7 @@ def view_write_rz():
 
 @app.route('/restart')
 def view_restart():
-    return ''
+    return subprocess.Popen(['sudo', 'service', 'named', 'restart'], stdout=subprocess.PIPE).communicate()[0]
 
 if __name__ == '__main__':
     app.debug = True
