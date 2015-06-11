@@ -1,17 +1,22 @@
-from flask import Flask, render_template, jsonify, request
 
 import shutil
 import datetime
 
+import sys
+sys.path.append("/var/www/dnsgui/")
+sys.path.append("/usr/lib/python2.6/site-packages/Jinja2-2.6-py2.6.egg")
+
+from flask import Flask, render_template, jsonify, request
+
 from ForwardParser import ForwardParser
 from ReverseParser import ReverseParser
 
-FZ_FILE = "C:\\Users\\esa\\PycharmProjects\\DNSGui\\named.ikioma"
-RZ_FILE = "C:\\Users\\esa\\PycharmProjects\\DNSGui\\revp.192.168.0"
+FZ_FILE = "/var/named/named.ikioma"
+RZ_FILE = "/var/named/revp.192.168.0"
 
 app = Flask(__name__)
-
-
+app.config['PROPAGATE_EXCEPTIONS'] = True
+app.debug = True
 @app.route('/')
 def view_main():
     return render_template("main.html")
