@@ -190,7 +190,7 @@ function sendData() {
 
 function restart() {
     $.get("/restart", function(data) {
-        $(".modal-body").text(data);
+        $(".modal-body").html(data.replace("\n", "<br>"));
         $(".modal").modal();
     })
 }
