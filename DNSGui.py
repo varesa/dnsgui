@@ -2,6 +2,7 @@
 import shutil
 import datetime
 import subprocess
+import re
 
 import sys
 sys.path.append("/var/www/dnsgui/")
@@ -18,6 +19,8 @@ RZ_FILE = "/var/named/revp.192.168.0"
 app = Flask(__name__)
 app.config['PROPAGATE_EXCEPTIONS'] = True
 app.debug = True
+
+
 @app.route('/')
 def view_main():
     return render_template("main.html")
@@ -54,9 +57,11 @@ def view_write_rz():
 
 @app.route('/restart')
 def view_restart():
-    return subprocess.Popen(['sudo', 'service', 'named', 'restart'], stdout=subprocess.PIPE).communicate()[0]
+    p = subprocess.Popen(['sudo', 'service', 'named', 'restart'], stdout=subprocess.PIPE)
+    #print(p.communicate()[0])
+    return re.sub("\[[^m\[]+[mG]", "", p.communicate()[0])
 
 if __name__ == '__main__':
     app.debug = True
-    app.run()
+    app.run(host="0.0.0.0")
 
