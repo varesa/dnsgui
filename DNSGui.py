@@ -59,7 +59,7 @@ def view_write_rz():
 def view_restart():
     p = subprocess.Popen(['sudo', 'service', 'named', 'restart'], stdout=subprocess.PIPE)
     #print(p.communicate()[0])
-    return re.sub("\[[^m\[]+[mG]", "", p.communicate()[0])
+    return p.communicate()[0] #re.sub("\[[^m\[]+[mG]", "", p.communicate()[0])
 
 if __name__ == '__main__':
     app.debug = True
